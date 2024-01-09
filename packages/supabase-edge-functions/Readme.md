@@ -1,3 +1,10 @@
+### How to start the scraper
+```
+    npm run start:db
+```
+```
+    npm run start:scraper
+```
 ### Why supabase for the backend?
 I don't want to maintain the services myself.
 

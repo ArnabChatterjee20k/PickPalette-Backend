@@ -9,4 +9,18 @@ async function test(){
     const crawler = await new ProductHuntCrawler(config).init()
     crawler.crawl()
 }
-test()
+
+async function getFile(){
+    interface Data{
+        title:string,
+        description:string,
+        palette:string[]
+    }
+    const res = await fetch("http://localhost:3000/data")
+    const data:Data[] = await res.json()
+
+    const set = new Set()
+    data.forEach(d=>set.add(d.title))
+    console.log(Array.from(set).length)
+}
+getFile()
