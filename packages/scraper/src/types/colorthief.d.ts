@@ -1,7 +1,6 @@
-declare module 'colorthief' {
-  type Color = [number, number, number];
-  export default class ColorThief {
-    getColor: (img: HTMLImageElement | null) => Color;
-    getPalette: (img: HTMLImageElement | null) => Color[];
-  }
+declare module "colorthief" {
+   type Color = [number, number, number];
+   const getColor: (img: string | null) => Color;
+   const getPalette: (img: string | null) => Promise<Color[]>;
+   export {getColor,getPalette}
 }
