@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"npx json-server newDB.json"
+    "start":"npx json-server yearly.json"
   },
   "author": "",
   "license": "ISC",
