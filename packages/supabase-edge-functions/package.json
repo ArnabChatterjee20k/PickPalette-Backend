@@ -3,18 +3,24 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "start": "echo running"
+    "start": "echo running",
+    "generate": "drizzle-kit generate:pg",
+    "migrate": "ts-node migrate.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@supabase/supabase-js": "^2.21.0",
     "dotenv": "^16.0.3",
+    "drizzle-orm": "^0.29.3",
+    "postgres": "^3.4.3",
     "sentiment": "^5.0.2"
   },
   "devDependencies": {
-    "supabase": "^1.64.8"
+    "drizzle-kit": "^0.20.13",
+    "supabase": "^1.64.8",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   }
 }
