@@ -10,6 +10,11 @@ Discover endless color possibilities with PickPalette – effortlessly generate 
 
 # Backend built with Supabase Edge functions
 
+> 📘 Notes
+>
+> - Every code getting consumed by the functions must be present in the supabase/functions/ directory
+> - Enable the deno workspace for getting a great dev experience
+
 ### How to setup deno for the vscode workspace?
 
 - Deno cli must be installed first
