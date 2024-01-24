@@ -6,7 +6,10 @@
   "scripts": {
     "start": "echo running",
     "generate": "drizzle-kit generate:pg",
-    "migrate": "ts-node migrate.ts"
+    "migrate-local": "ts-node migrate.ts && npm run gen-types-local",
+    "migrate-remote":"ts-node migrate.ts && npm run gen-types-remote",
+    "gen-types-local":"mkdir -p supabase/types && supabase gen types typescript --local >> supabase/types/supabase.ts",
+    "gen-types-remote":"mkdir -p supabase/types && supabase gen types typescript --linked >> supabase/types/supabase.ts"
   },
   "author": "",
   "license": "ISC",
