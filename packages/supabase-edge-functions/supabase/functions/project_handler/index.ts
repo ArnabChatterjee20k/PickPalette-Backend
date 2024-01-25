@@ -1,29 +1,56 @@
-// Follow this setup guide to integrate the Deno language server with your editor:
-// https://deno.land/manual/getting_started/setup_your_environment
-// This enables autocomplete, go to definition, etc.
+import { Database } from "../__shared/types/supabase.ts";
+import verify from "../__shared/middlewares/verify.ts";
+import ProjectHandler from "../__shared/services/ProjectHandler.ts";
+// @deno-types="npm:@types/express"
+import express from "npm:express";
+import cors from "npm:cors-express";
+import verifyProjectDetails from "../__shared/middlewares/verifyProjectDetails.ts";
+import verifyAPIKey from "../__shared/middlewares/verifyAPIKey.ts";
 
-console.log("Hello from Functions!")
+const app = express();
+app.use(cors());
+app.use(express.json());
+const project = new ProjectHandler();
+const ROUTE = "/project_handler"; // name of the function
+type IProject = Database["public"]["Tables"]["project"]["Row"];
+app.get(`${ROUTE}/:user_id`, verify, async (req, res) => {
+  const user_id = req.params.user_id;
+  const data = await project.get(user_id);
+  return res.status(data.code).json(data);
+});
 
-Deno.serve(async (req) => {
-  const { name } = await req.json()
-  const data = {
-    message: `Hello ${name}!`,
+app.post(
+  `${ROUTE}/:project_id`,
+  verify,
+  verifyProjectDetails,
+  async (req, res) => {
+    const { name, description, user_id }: IProject = req.body;
+    const { code, status } = await project.create({
+      user_id,
+      name,
+      description,
+    });
+    return res.status(code).json(status);
   }
+);
 
-  return new Response(
-    JSON.stringify(data),
-    { headers: { "Content-Type": "application/json" } },
-  )
-})
+app.put(`${ROUTE}/:project_id`, verify, verifyAPIKey, async (req, res) => {
+  const project_id = req.params.project_id;
+  const { name, description, user_id }: IProject = req.body;
+  const { code, status } = await project.update({
+    name,
+    description,
+    user_id,
+    id: project_id,
+  });
+  return res.status(code).json({ code, status });
+});
 
-/* To invoke locally:
+app.delete(`${ROUTE}/:project_id`, verify, verifyAPIKey, async (req, res) => {
+  const project_id = req.params.project_id as string;
+  const { name }: IProject = req.body;
+  const { code, status } = await project.delete(parseInt(project_id));
+  return res.status(code).json({ code, status });
+});
 
-  1. Run `supabase start` (see: https://supabase.com/docs/reference/cli/supabase-start)
-  2. Make an HTTP request:
-
-  curl -i --location --request POST 'http://127.0.0.1:54321/functions/v1/project_handler' \
-    --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0' \
-    --header 'Content-Type: application/json' \
-    --data '{"name":"Functions"}'
-
-*/
+app.listen(8000);

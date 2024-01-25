@@ -8,8 +8,8 @@
     "generate": "drizzle-kit generate:pg",
     "migrate-local": "ts-node migrate.ts && npm run gen-types-local",
     "migrate-remote":"ts-node migrate.ts && npm run gen-types-remote",
-    "gen-types-local":"mkdir -p supabase/types && supabase gen types typescript --local >> supabase/types/supabase.ts",
-    "gen-types-remote":"mkdir -p supabase/types && supabase gen types typescript --linked >> supabase/types/supabase.ts"
+    "gen-types-local":"mkdir -p supabase/functions/__shared/types && supabase gen types typescript --local >> supabase/functions/__shared/types/supabase.ts",
+    "gen-types-remote":"mkdir -p supabase/functions/__shared/types && supabase gen types typescript --linked >> supabase/functions/types/supabase.ts"
   },
   "author": "",
   "license": "ISC",
