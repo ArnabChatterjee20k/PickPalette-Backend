@@ -46,16 +46,22 @@ export default class ProjectHandler {
     return HTTPResponse("SUCCESS", 204);
   }
 
-  public async delete( id :ProjectTable["Row"]["id"]) {
-    const { status,error } = await supabaseClient
+  public async delete(id: ProjectTable["Row"]["id"]) {
+    const { status, error } = await supabaseClient
       .from("project")
       .delete()
       .eq("id", id);
-    if(error) HTTPResponse("ERROR", status);
+    if (error) HTTPResponse("ERROR", status);
     if (status === 204) return HTTPResponse("SUCCESS", status);
     return HTTPResponse("ERROR", status);
   }
 
-  //during development of the api
-  private async generateAPIKey() {}
+  public async verifyProjectOwner(id:ProjectTable["Row"]["id"], user_id:ProjectTable["Row"]["user_id"]  ) {
+    const { count ,data} = await supabaseClient
+      .from("project")
+      .select("id", { count: 'exact', head: true })
+      .filter("id", "eq", id)
+      .filter("user_id", "eq", user_id);
+    return count === 1;
+  }
 }
