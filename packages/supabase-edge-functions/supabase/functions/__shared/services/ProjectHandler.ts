@@ -2,8 +2,10 @@ import HTTPResponse from "../constants/HTTPResponse.ts";
 import { supabaseClient } from "../supabaseClient.ts";
 import { Database } from "../types/supabase.ts";
 type ProjectTable = Database["public"]["Tables"]["project"];
+type ICreate = Pick<ProjectTable["Row"], "user_id" | "name" | "description">;
+
 export default class ProjectHandler {
-  public async create({ user_id, name, description }: ProjectTable["Row"]) {
+  public async create({ user_id, name, description }: ICreate) {
     const { status } = await supabaseClient
       .from("project")
       .insert({ name, description, user_id });
@@ -56,10 +58,13 @@ export default class ProjectHandler {
     return HTTPResponse("ERROR", status);
   }
 
-  public async verifyProjectOwner(id:ProjectTable["Row"]["id"], user_id:ProjectTable["Row"]["user_id"]  ) {
-    const { count ,data} = await supabaseClient
+  public async verifyProjectOwner(
+    id: ProjectTable["Row"]["id"],
+    user_id: ProjectTable["Row"]["user_id"]
+  ) {
+    const { count, data } = await supabaseClient
       .from("project")
-      .select("id", { count: 'exact', head: true })
+      .select("id", { count: "exact", head: true })
       .filter("id", "eq", id)
       .filter("user_id", "eq", user_id);
     return count === 1;

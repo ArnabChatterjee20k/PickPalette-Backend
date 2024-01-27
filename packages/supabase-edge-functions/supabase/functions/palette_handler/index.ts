@@ -37,8 +37,11 @@ app.put(
   verifyProjectOwner,
   async (req, res) => {
     const projectId = parseInt(req.params.project_id);
-    const colors: IPalette["colors"] = req.body as string[];
-    const { code, status, data } = await palette.update(projectId, colors);
+    const { colors }: IPalette = req.body;
+    const { code, status, data } = await palette.update(
+      projectId,
+      colors as string[]
+    );
     return res.status(code).json({ data, status });
   }
 );

@@ -15,18 +15,19 @@ export class PaletteHandler {
   public async get(project_id: PaletteTable["Row"]["project_id"]) {
     const { data, status, error } = await supabaseClient
       .from("palette")
-      .select("*")
+      .select("colors")
       .eq("project_id", project_id);
     if (error) return HTTPResponse("ERROR", status);
     return HTTPResponse("SUCCESS", status, data);
   }
   public async update(projectId: number,colors:string[]) {
-    const { data, status} = await supabaseClient
+    const { data, status,error} = await supabaseClient
       .from("palette")
-      .insert({ colors: colors, project_id: projectId })
-      .select("colors");
-    if (status === 204) return HTTPResponse("SUCCESS", status, data);
-    console.log({status})
-    return HTTPResponse("ERROR", status, data);
+      .update({colors:colors})
+      .eq("project_id",projectId)
+      .select("colors")
+      console.log({status,error})
+      if(error)return HTTPResponse("ERROR", status, data);
+      return HTTPResponse("SUCCESS", status, data);
   }
 }

@@ -24,7 +24,7 @@ app.get(`${ROUTE}`, verify, async (req, res) => {
 app.post(`${ROUTE}`, verify, verifyProjectDetails, async (req, res) => {
   const error = validationResult(req);
   if (!error.isEmpty()) return res.status(400).json({ errors: error.array() });
-  const { name, description, user_id }: IProject = req.body;
+  const { name, description }: IProject = req.body;
   const userId = req.currentUserId;
   const { code, status } = await project.create({
     user_id: userId,
