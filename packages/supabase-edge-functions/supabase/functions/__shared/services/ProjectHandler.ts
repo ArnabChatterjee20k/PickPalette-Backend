@@ -1,6 +1,8 @@
 import HTTPResponse from "../constants/HTTPResponse.ts";
 import { supabaseClient } from "../supabaseClient.ts";
 import { Database } from "../types/supabase.ts";
+import { PaletteHandler } from "./PaletteHandler.ts";
+
 type ProjectTable = Database["public"]["Tables"]["project"];
 type ICreate = Pick<ProjectTable["Row"], "user_id" | "name" | "description">;
 
@@ -24,6 +26,15 @@ export default class ProjectHandler {
     return HTTPResponse("ERROR", status, data);
   }
 
+  public async getAllProjects(user_id: string) {
+    const { data, status } = await supabaseClient
+      .from("project")
+      .select("id,name,description")
+      .eq("user_id", user_id);
+
+    if (status === 200) return HTTPResponse("SUCCESS", status, data);
+    return HTTPResponse("ERROR", status, data);
+  }
   public async update({
     name,
     description,

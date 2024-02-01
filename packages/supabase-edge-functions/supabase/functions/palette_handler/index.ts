@@ -20,17 +20,6 @@ app.get(`${ROUTE}/:project_id`, async (req, res) => {
   return res.status(code).json({ data, status });
 });
 
-app.post(
-  `${ROUTE}/:project_id`,
-  verify,
-  verifyProjectOwner,
-  async (req, res) => {
-    const projectId = parseInt(req.params.project_id);
-    const { code, status, data } = await palette.create(projectId);
-    return res.status(code).json({ data, status });
-  }
-);
-
 app.put(
   `${ROUTE}/:project_id`,
   verify,

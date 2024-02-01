@@ -34,6 +34,12 @@ app.post(`${ROUTE}`, verify, verifyProjectDetails, async (req, res) => {
   return res.status(code).json({status,token:""});
 });
 
+app.get(`${ROUTE}`, verify, async (req, res) => {
+  const userId = req.currentUserId
+  const { code, status } = await project.getAllProjects(userId!)
+  return res.status(code).json({ code, status });
+});
+
 app.put(`${ROUTE}/:project_id`, verify, verifyProjectOwner, async (req, res) => {
   const project_id = parseInt(req.params.project_id);
   const { name, description }: IProject = req.body;
