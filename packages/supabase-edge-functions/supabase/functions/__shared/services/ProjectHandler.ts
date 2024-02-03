@@ -8,19 +8,20 @@ type ICreate = Pick<ProjectTable["Row"], "user_id" | "name" | "description">;
 
 export default class ProjectHandler {
   public async create({ user_id, name, description }: ICreate) {
-    const { status } = await supabaseClient
+    const { data, status, error } = await supabaseClient
       .from("project")
-      .insert({ name, description, user_id });
-
-    if (status === 201) return HTTPResponse("SUCCESS", status);
-    return HTTPResponse("ERROR", status);
+      .insert({ name, description, user_id })
+      .select("id");
+    if (error) return HTTPResponse("ERROR", status);
+    return HTTPResponse("SUCCESS", status, data[0]);
   }
 
   public async get(user_id: string) {
     const { data, status } = await supabaseClient
       .from("project")
       .select("name,id")
-      .eq("user_id", user_id);
+      .eq("user_id", user_id)
+      .select();
 
     if (status === 200) return HTTPResponse("SUCCESS", status, data);
     return HTTPResponse("ERROR", status, data);
