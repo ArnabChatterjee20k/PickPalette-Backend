@@ -9,9 +9,14 @@ export class PaletteHandler {
     const { data, status, error } = await supabaseClient
       .from("palette")
       .insert({ colors: DefaultColors, project_id: projectId })
-      .select("colors");
-    if (status === 201) return HTTPResponse("SUCCESS", status, data);
-    return HTTPResponse("ERROR", status);
+      .select("colors,project(name)");
+    console.log({ error });
+    if (error) return HTTPResponse("ERROR", status);
+    const result = {
+      name: data[0].project?.name,
+      colors: data[0].colors,
+    };
+    return HTTPResponse("SUCCESS", status, [result]);
   }
   public async get(project_id: PaletteTable["Row"]["project_id"]) {
     const { data, status, error } = await supabaseClient
@@ -26,9 +31,10 @@ export class PaletteHandler {
       .eq("id", project_id);
     if (error) return HTTPResponse("ERROR", status);
 
-    // If project exists but palette does not exists create the palettes
+    // If project exists but palette does not exists then create the palettes
     if (data[0]?.id && data[0].palette.length === 0) {
       const { code, status, data } = await this.create(project_id);
+      console.log(data, status);
       return HTTPResponse("SUCCESS", code, data);
     }
 
