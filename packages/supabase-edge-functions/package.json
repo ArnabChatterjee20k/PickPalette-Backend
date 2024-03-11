@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "echo running",
+    "start-functions":"sudo npx supabase functions serve --no-verify-jwt",
+    "start-supabase":"sudo npx supabase start",
     "generate": "drizzle-kit generate:pg",
     "migrate-local": "ts-node migrate.ts && npm run gen-types-local",
     "migrate-remote":"ts-node migrate.ts && npm run gen-types-remote",
