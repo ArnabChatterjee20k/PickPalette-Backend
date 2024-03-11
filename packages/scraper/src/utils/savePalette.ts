@@ -1,12 +1,19 @@
 import axios from "axios";
+import { cache } from "../cache";
+import VectorDB from "../VectorDB";
 const retry = require("async-retry");
+import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
 interface Options {
   title: string;
   description: string;
   palette: string[];
 }
 export async function savePalette(options: Options) {
-  savePaletteWithFetch(options);
+  // savePaletteWithFetch(options);
+  savePaletteToCache(options);
+}
+function savePaletteToCache(dataOptions: Options) {
+  return cache.set(cache.keys().length + 1, dataOptions);
 }
 function savePaletteWithFetch(dataOptions: Options) {
   let options = {
@@ -27,4 +34,24 @@ function savePaletteWithFetch(dataOptions: Options) {
     .catch(function (error) {
       console.error(error);
     });
+}
+
+export async function saveToVectorDB() {
+  const db = new VectorDB();
+  const data = cache.keys();
+  const index = await db.get_index();
+  const upsertData = await Promise.all(
+    data.map(async (key) => {
+      const product: Options = cache.get(key);
+      const doc = `title:${product.title} description:${product.description}`;
+      const vectors = await db.generate_embeddings(doc);
+      return {
+        values: vectors,
+        id: key,
+        metadata: { title: product.title, palettes: product.palette },
+      };
+    })
+  );
+
+  await index.upsert(upsertData);
 }

@@ -22,7 +22,7 @@ export class ProductHuntCrawler {
     this.count = 0;
   }
   async init(): Promise<ProductHuntCrawler> {
-    this.browser = await pw.chromium.launch({ headless: false });
+    this.browser = await pw.chromium.launch({ headless: true });
     this.page = await this.browser.newPage();
     return this;
   }
