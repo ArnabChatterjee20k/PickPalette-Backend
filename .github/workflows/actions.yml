@@ -8,6 +8,13 @@ jobs:
   scrape:
     runs-on: ubuntu-latest
 
+    env:
+        VECTOR_DB_API_KEY: ${{ secrets.VECTOR_DB_API_KEY }}
+        GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        SERVICE_EMAIL: ${{ secrets.SERVICE_EMAIL }}
+        PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+        SHEET_ID: ${{ secrets.SHEET_ID }}
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
