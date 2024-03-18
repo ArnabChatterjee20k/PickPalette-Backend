@@ -3,6 +3,7 @@ import { cache } from "../cache";
 import VectorDB from "../VectorDB";
 const retry = require("async-retry");
 import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
+import PaletteDB from "../PaletteDB";
 interface Options {
   title: string;
   description: string;
@@ -53,5 +54,26 @@ export async function saveToVectorDB() {
     })
   );
 
-  await index.upsert(upsertData);
+  index.upsert(upsertData);
+}
+
+export async function saveToPaletteDB() {
+  const data = cache.keys();
+  const db = new PaletteDB();
+  await db.intitialise();
+
+  const upsertData = await Promise.all(
+    data.map(async (key) => {
+      const product: Options = cache.get(key);
+      return product.palette;
+    })
+  );
+
+  db.updateDB(upsertData);
+}
+
+export async function deleteFromDB() {
+  const db = new VectorDB();
+  const index = await db.get_index()
+  index.deleteAll()
 }

@@ -1,20 +1,28 @@
+import PaletteDB from "./src/PaletteDB";
 import { cache } from "./src/cache";
 import { ProductHuntCrawler } from "./src/core";
 import { Config } from "./src/types/Config";
-import { savePalette, saveToVectorDB } from "./src/utils/savePalette";
+import getProductHuntLinkToScrape from "./src/utils/getProductHuntLinkToScrape";
+import {
+  deleteFromDB,
+  savePalette,
+  saveToPaletteDB,
+  saveToVectorDB,
+} from "./src/utils/savePalette";
 const config: Config = {
   maxQueries: 40,
   selectors: [],
-  url: "https://www.producthunt.com/leaderboard/daily/2023/7/3",
+  url: getProductHuntLinkToScrape(),
 };
 async function run_crawler() {
-    try {
-        const crawler = await new ProductHuntCrawler(config).init();
-        await crawler.crawl();
-        await saveToVectorDB();
-    } catch (error) {
-        console.log(error.message);
-    }
+  try {
+    const crawler = await new ProductHuntCrawler(config).init();
+    await crawler.crawl();
+    await Promise.all([saveToVectorDB(), saveToPaletteDB()]);
+  } catch (error) {
+    console.log(error.message);
+    console.log(cache.data);
+  }
 }
 
 async function getFile() {
@@ -30,4 +38,12 @@ async function getFile() {
   data.forEach((d) => set.add(d.title));
   console.log(Array.from(set).length);
 }
-run_crawler()
+// run_crawler();
+// npx ts-node index.ts
+async function test() {
+  const db = new PaletteDB();
+  await db.intitialise();
+  // await db.updateDB([["1", "2", "3", "4"]]);
+}
+
+run_crawler();

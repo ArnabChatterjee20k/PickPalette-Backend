@@ -16,6 +16,8 @@
     "@pinecone-database/pinecone": "^2.1.0",
     "axios": "^1.6.5",
     "colorthief": "^2.4.0",
+    "google-auth-library": "^9.7.0",
+    "google-spreadsheet": "^4.1.1",
     "node-cache": "^5.1.2",
     "playwright": "^1.40.1"
   }
