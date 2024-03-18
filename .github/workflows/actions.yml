@@ -2,7 +2,7 @@ name: Scraper Worker
 
 on:
   schedule:
-    - cron: '30 11 * * *'  # Runs every day at 11:30 AM UTC
+    - cron: '12 00 * * *'  # Runs every day at 11:30 AM UTC
 
 jobs:
   scrape:
@@ -34,4 +34,4 @@ jobs:
       run: npx playwright install --with-deps chromium
 
     - name: Run Scraper
-      run: npx ts-node index.ts
+      run: npm run start:scraper
