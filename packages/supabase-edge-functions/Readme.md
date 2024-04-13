@@ -22,12 +22,32 @@ Discover endless color possibilities with PickPalette – effortlessly generate 
 - Then install the deno offical vscode extension
 - Then enable by typing deno: on the command palette(ctrl+p)
 
+### Deploying Functions
+
+```bash
+# linking the auth token by going to generate new token page of supabase or supabase login
+# if getting error try by adding sudo before npx
+npx supabase login --token <your token>
+```
+
+```bash
+### it will deploy all the functions present in the functions assinged folder
+npm run deply-functions
+```
+
+> 📘 Notes
+>
+> - When running functions
+>   - use the url(get it from dashboard)
+>   - after the {url}/{specific endpoint present >in the express route handlers}
+
 ### How the type flow is in sync with the db after a new migration is applied
 
 - Supabase provide us generating types and we can use command
 
 ```bash
 # linking the auth token by going to generate new token page of supabase or supabase login
+# if getting error try by adding sudo before npx
 npx supabase login --token <your token>
 ```
 
@@ -51,6 +71,7 @@ npm run gen-types-remote
 
 ```bash
 # linking the auth token by going to generate new token page of supabase or supabase login
+# if getting error try by adding sudo before npx
 npx supabase login --token <your token>
 ```
 
