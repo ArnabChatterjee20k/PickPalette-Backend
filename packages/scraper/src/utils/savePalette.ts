@@ -4,6 +4,7 @@ import VectorDB from "../VectorDB";
 const retry = require("async-retry");
 import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
 import PaletteDB from "../PaletteDB";
+import generateRandomId from "./generateRandomId";
 interface Options {
   title: string;
   description: string;
@@ -48,7 +49,7 @@ export async function saveToVectorDB() {
       const vectors = await db.generate_embeddings(doc);
       return {
         values: vectors,
-        id: key,
+        id: `${generateRandomId()}`,
         metadata: { title: product.title, palettes: product.palette },
       };
     })
