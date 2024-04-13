@@ -14,6 +14,7 @@ Discover endless color possibilities with PickPalette – effortlessly generate 
 >
 > - Every code getting consumed by the functions must be present in the supabase/functions/ directory
 > - Enable the deno workspace for getting a great dev experience
+> - The codebase is using express inside supabase functions. I saw that starting functions after a cold boot was giving delay. So instead of calling each functions, express routes has been inbuilt so that a single function can get consumed
 
 ### How to setup deno for the vscode workspace?
 
@@ -24,6 +25,11 @@ Discover endless color possibilities with PickPalette – effortlessly generate 
 ### How the type flow is in sync with the db after a new migration is applied
 
 - Supabase provide us generating types and we can use command
+
+```bash
+# linking the auth token by going to generate new token page of supabase or supabase login
+npx supabase login --token <your token>
+```
 
 ```bash
 # for local dev
@@ -42,6 +48,11 @@ npm run gen-types-remote
 - Then migration is getting done. Then the types are generated so that we can use the schema typings in Deno environment of the supabase functions
 - Then we can start consuming the types generated even with the supabase client in the deno env
 ### Running Migrations using Drizzle Kit in Supabase Table
+
+```bash
+# linking the auth token by going to generate new token page of supabase or supabase login
+npx supabase login --token <your token>
+```
 
 ```bash
 npm run generate
