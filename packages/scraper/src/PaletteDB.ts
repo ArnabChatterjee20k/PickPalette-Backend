@@ -40,7 +40,7 @@ export default class PaletteDB {
     const paletteSheet = this.db.sheetsByTitle.Palette;
     const logger = await this.logger;
     try {
-      logger.info({ status: "Saving to palette sheet", palettes: palettes });
+      logger.info({ status: "Saving to palette sheet" });
       await paletteSheet.addRows(palettes);
       return true;
     } catch (error) {
