@@ -5,6 +5,8 @@ const retry = require("async-retry");
 import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
 import PaletteDB from "../PaletteDB";
 import generateRandomId from "./generateRandomId";
+import { classifySentiment } from "./classifySentiment";
+import { getLogger } from "../Logger";
 interface Options {
   title: string;
   description: string;
@@ -40,11 +42,16 @@ export async function saveToVectorDB() {
   const db = new VectorDB();
   const data = cache.keys();
   const index = await db.get_index();
+  const logger = await getLogger("sentiment")
+  const sentimentDocs = []
   const upsertData = await Promise.all(
     data.map(async (key) => {
       const product: Options = cache.get(key);
       const doc = `title:${product.title} description:${product.description}`;
-      const vectors = await db.generate_embeddings(doc);
+      const {positive,negative,neutral} = await classifySentiment(doc)
+      const docForEmbedding = `title:${product.title} description:${product.description} positive:${positive} negative:${negative} neutral:${neutral}`;
+      sentimentDocs.push({title:product.title,description:product.description,positive,negative,neutral})
+      const vectors = await db.generate_embeddings(docForEmbedding);
       return {
         values: vectors,
         id: `${generateRandomId()}`,
@@ -52,7 +59,7 @@ export async function saveToVectorDB() {
       };
     })
   );
-
+  logger.info({sentimentDocs})
   index.upsert(upsertData);
 }
 
