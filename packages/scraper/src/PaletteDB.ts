@@ -40,7 +40,6 @@ export default class PaletteDB {
     const paletteSheet = this.db.sheetsByTitle.Palette;
     const logger = await this.logger;
     try {
-      logger.info({ status: "Saving to palette sheet" });
       await paletteSheet.addRows(palettes);
       return true;
     } catch (error) {
@@ -56,13 +55,18 @@ export default class PaletteDB {
     const counterSheet = this.db.sheetsByTitle.PaletteCounter;
     const row = (await counterSheet.getRows())[0];
     const count = parseInt(row.get("Count"));
-
+    const logger = await getLogger("PaletteCounter");
     try {
       row.set("Count", count + numberOfPalettesUpdated);
       row.save();
       return true;
     } catch (error) {
-      console.log({ message: "Error updating palette counter", error });
+      logger.error({
+        status: "Error updating palette counter",
+        error: error.message,
+        previousCount: count,
+        palettesAdded: numberOfPalettesUpdated,
+      });
     }
   }
 }

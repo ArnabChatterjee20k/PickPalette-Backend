@@ -42,6 +42,7 @@ export class ProductHuntCrawler {
       onVisit,
     } = this.config;
     const visitedPages = new Set();
+    const errorsInPages = [];
     try {
       await this.page.goto(url, { waitUntil: "domcontentloaded" });
 
@@ -117,7 +118,7 @@ export class ProductHuntCrawler {
             console.log(error);
           }
         } catch (error) {
-          (await this.generalDataLogger).error({
+          errorsInPages.push({
             product: link,
             error: error.message,
           });
@@ -135,6 +136,9 @@ export class ProductHuntCrawler {
       if (this.browser) {
         await this.browser.close();
       }
+
+      if (errorsInPages.length > 1)
+        (await this.generalDataLogger).error({ errors: errorsInPages });
     }
   }
 

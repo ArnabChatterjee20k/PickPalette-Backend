@@ -9,8 +9,7 @@ export async function classifySentiment(data: string): Promise<ClassifyResult> {
     "https://api-inference.huggingface.co/models/lxyuan/distilbert-base-multilingual-cased-sentiments-student",
     {
       headers: {
-        // Authorization: `Bearer ${process.env.HUGGING_FACE_API_TOKEN}`,
-        Authorization: `Bearer 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`,
+        Authorization: `Bearer ${process.env.HUGGING_FACE_API_TOKEN}`,
       },
       method: "POST",
       body: JSON.stringify({ inputs: data }),

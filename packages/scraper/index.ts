@@ -1,3 +1,4 @@
+import { getLogger } from "./src/Logger";
 import PaletteDB from "./src/PaletteDB";
 import { cache } from "./src/cache";
 import { ProductHuntCrawler } from "./src/core";
@@ -19,8 +20,14 @@ async function run_crawler() {
     await crawler.crawl();
     await Promise.all([saveToVectorDB(), saveToPaletteDB()]);
   } catch (error) {
-    console.log(error.message);
-    console.log(cache.data);
+    const logger = await getLogger("save");
+    logger.error({
+      error: error.message,
+      cache: cache.keys().map((key) => {
+        const product = cache.get(key);
+        return product;
+      }),
+    });
   }
 }
 
