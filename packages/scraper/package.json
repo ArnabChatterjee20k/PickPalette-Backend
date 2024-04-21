@@ -12,13 +12,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google/generative-ai": "^0.7.1",
     "@langchain/google-genai": "^0.0.10",
     "@pinecone-database/pinecone": "^2.1.0",
     "axios": "^1.6.5",
+    "camelcase": "^8.0.0",
+    "clone": "^2.1.2",
     "colorthief": "^2.4.0",
     "google-auth-library": "^9.7.0",
     "google-spreadsheet": "^4.1.1",
+    "mongodb": "6.5",
     "node-cache": "^5.1.2",
-    "playwright": "^1.40.1"
+    "playwright": "^1.40.1",
+    "winston": "^3.13.0",
+    "winston-mongodb": "^5.1.1"
   }
 }

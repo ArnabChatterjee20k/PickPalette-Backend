@@ -5,7 +5,6 @@ import { Config } from "./src/types/Config";
 import getProductHuntLinkToScrape from "./src/utils/getProductHuntLinkToScrape";
 import {
   deleteFromDB,
-  savePalette,
   saveToPaletteDB,
   saveToVectorDB,
 } from "./src/utils/savePalette";

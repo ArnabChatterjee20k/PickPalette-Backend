@@ -10,11 +10,8 @@ interface Options {
   description: string;
   palette: string[];
 }
-export async function savePalette(options: Options) {
-  // savePaletteWithFetch(options);
-  savePaletteToCache(options);
-}
-function savePaletteToCache(dataOptions: Options) {
+
+export function savePaletteToCache(dataOptions: Options) {
   return cache.set(cache.keys().length + 1, dataOptions);
 }
 function savePaletteWithFetch(dataOptions: Options) {
@@ -39,6 +36,7 @@ function savePaletteWithFetch(dataOptions: Options) {
 }
 
 export async function saveToVectorDB() {
+  console.log("Started building vectors")
   const db = new VectorDB();
   const data = cache.keys();
   const index = await db.get_index();
