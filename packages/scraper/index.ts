@@ -23,10 +23,19 @@ async function run_crawler() {
     const logger = await getLogger("save");
     logger.error({
       error: error.message,
-      cache: cache.keys().map((key) => {
-        const product = cache.get(key);
-        return product;
-      }),
+      cache: JSON.stringify(
+        cache.keys().map((key) => {
+          const product = cache.get(key);
+          return {
+            // @ts-ignore
+            title: product?.title,
+            // @ts-ignore
+            description: product?.description,
+            // @ts-ignore
+            palette: product?.palette,
+          };
+        })
+      ),
     });
   }
 }
