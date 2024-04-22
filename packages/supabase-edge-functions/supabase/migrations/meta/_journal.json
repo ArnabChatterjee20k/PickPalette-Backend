@@ -15,6 +15,13 @@
       "when": 1713778606678,
       "tag": "0001_natural_scarecrow",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1713788048562,
+      "tag": "0002_bored_zarek",
+      "breakpoints": true
     }
   ]
 }

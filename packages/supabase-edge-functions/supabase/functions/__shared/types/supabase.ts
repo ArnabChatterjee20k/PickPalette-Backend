@@ -130,6 +130,35 @@ export interface Database {
           }
         ]
       }
+      "saved-palettes": {
+        Row: {
+          created_at: string | null
+          id: number
+          palette: string[] | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number
+          palette?: string[] | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: number
+          palette?: string[] | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "saved-palettes_user_id_users_id_fk"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never
