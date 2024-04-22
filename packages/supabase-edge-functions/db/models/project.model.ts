@@ -5,6 +5,7 @@ import {
   serial,
   text,
   varchar,
+  boolean
 } from "drizzle-orm/pg-core";
 import { authModel } from "./auth.model";
 
@@ -19,4 +20,5 @@ export const projectModel = pgTable("project", {
     }),
   name: varchar("name").notNull(),
   description: text("description").notNull(),
+  share: boolean("share").default(false)
 });

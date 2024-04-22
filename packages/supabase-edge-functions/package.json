@@ -5,26 +5,27 @@
   "main": "index.js",
   "scripts": {
     "start": "echo running",
-    "start-functions":"sudo npx supabase functions serve --no-verify-jwt",
-    "deploy-functions":"sudo npx supabase functions deploy --no-verify-jwt",
-    "start-supabase":"sudo npx supabase start",
+    "start-functions": "sudo npx supabase functions serve --no-verify-jwt",
+    "deploy-functions": "sudo npx supabase functions deploy --no-verify-jwt",
+    "start-supabase": "sudo npx supabase start",
     "generate": "drizzle-kit generate:pg",
-    "migrate-local": "ts-node migrate.ts && npm run gen-types-local",
-    "migrate-remote":"ts-node migrate.ts && npm run gen-types-remote",
-    "gen-types-local":"mkdir -p supabase/functions/__shared/types && supabase gen types typescript --local >> supabase/functions/__shared/types/supabase.ts",
-    "gen-types-remote":"mkdir -p supabase/functions/__shared/types && supabase gen types typescript --linked >> supabase/functions/__shared/types/supabase.ts"
+    "migrate-local": "npx drizzle-kit generate:pg && npx ts-node migrate.ts && npm run gen-types-local",
+    "migrate-remote": "npx drizzle-kit migrate:pg && npx ts-node migrate.ts && npm run gen-types-remote",
+    "gen-types-local": "mkdir -p supabase/functions/__shared/types && supabase gen types typescript --local > supabase/functions/__shared/types/supabase.ts",
+    "gen-types-remote": "mkdir -p supabase/functions/__shared/types && supabase gen types typescript --local > supabase/functions/__shared/types/supabase.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@supabase/supabase-js": "^2.21.0",
+    "brace-expansion": "^4.0.0",
     "dotenv": "^16.0.3",
     "drizzle-orm": "^0.29.3",
     "postgres": "^3.4.3",
     "sentiment": "^5.0.2"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.20.13",
+    "drizzle-kit": "^0.20.17",
     "supabase": "^1.64.8",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"

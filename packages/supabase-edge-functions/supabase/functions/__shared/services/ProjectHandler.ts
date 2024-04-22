@@ -60,6 +60,16 @@ export default class ProjectHandler {
     return HTTPResponse("SUCCESS", 204);
   }
 
+  public async updateShare({ id, share }: ProjectTable["Update"]) {
+    if (!share) return HTTPResponse("ERROR", 400);
+    const { status, error } = await supabaseClient
+      .from("project")
+      .update({ share: share })
+      .filter("id", "eq", id);
+    if (error) return HTTPResponse("ERROR", 400);
+    return HTTPResponse("SUCCESS", status);
+  }
+
   public async delete(id: ProjectTable["Row"]["id"]) {
     const { status, error } = await supabaseClient
       .from("project")
@@ -78,7 +88,7 @@ export default class ProjectHandler {
       .from("project")
       .select("id", { count: "exact", head: true })
       .filter("id", "eq", id)
-      .filter("user_id", "eq", user_id);
+      .or(`user_id.eq.${user_id},share.eq.true`);
     return count === 1;
   }
 }

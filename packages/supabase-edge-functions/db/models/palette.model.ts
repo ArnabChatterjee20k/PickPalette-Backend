@@ -5,8 +5,7 @@ import {
   timestamp,
   serial,
   varchar,
-  integer,
-  boolean
+  integer
 } from "drizzle-orm/pg-core";
 import { projectModel } from "./project.model";
 
@@ -19,6 +18,5 @@ export const paletteModel = pgTable("palette", {
         onDelete:"no action",
         onUpdate:"no action"
     }),
-  colors: varchar("colors").default("#000000").array(),
-  share: boolean("share").default(false)
+  colors: varchar("colors").default("#000000").array()
 });

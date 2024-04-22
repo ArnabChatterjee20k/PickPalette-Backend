@@ -24,7 +24,7 @@ export class PaletteHandler {
       .select(
         `
       name,
-      id,
+      id,share,
       palette(colors)
       `
       )
