@@ -14,11 +14,16 @@ const palette = new PaletteHandler();
 const ROUTE = "/palette_handler"; // name of the function
 type IPalette = Database["public"]["Tables"]["palette"]["Row"];
 
-app.get(`${ROUTE}/:project_id`, async (req, res) => {
-  const projectId = parseInt(req.params.project_id);
-  const { code, status, data } = await palette.get(projectId);
-  return res.status(code).json({ data, status });
-});
+app.get(
+  `${ROUTE}/:project_id`,
+  verify,
+  verifyProjectOwner,
+  async (req, res) => {
+    const projectId = parseInt(req.params.project_id);
+    const { code, status, data } = await palette.get(projectId);
+    return res.status(code).json({ data, status });
+  }
+);
 
 app.put(
   `${ROUTE}/:project_id`,

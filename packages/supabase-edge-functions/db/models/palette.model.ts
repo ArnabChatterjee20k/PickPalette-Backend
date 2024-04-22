@@ -6,6 +6,7 @@ import {
   serial,
   varchar,
   integer,
+  boolean
 } from "drizzle-orm/pg-core";
 import { projectModel } from "./project.model";
 
@@ -19,4 +20,5 @@ export const paletteModel = pgTable("palette", {
         onUpdate:"no action"
     }),
   colors: varchar("colors").default("#000000").array(),
+  share: boolean("share").default(false)
 });
