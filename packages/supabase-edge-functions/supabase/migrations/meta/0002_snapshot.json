@@ -1,5 +1,5 @@
 {
-  "id": "c0069898-db5a-490b-8d51-80c8c0b73f40",
+  "id": "79e295af-876a-4f07-b0af-2dd70c10c451",
   "prevId": "2fadabc5-5ac6-4f97-b3dc-c8f932a3786b",
   "version": "5",
   "dialect": "pg",
@@ -192,12 +192,6 @@
       "name": "saved-palettes",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
         "created_at": {
           "name": "created_at",
           "type": "timestamp",
@@ -207,9 +201,9 @@
         },
         "palette": {
           "name": "palette",
-          "type": "varchar[]",
+          "type": "varchar",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "user_id": {
           "name": "user_id",
@@ -235,7 +229,15 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
+      "compositePrimaryKeys": {
+        "id": {
+          "name": "id",
+          "columns": [
+            "palette",
+            "user_id"
+          ]
+        }
+      },
       "uniqueConstraints": {}
     }
   },

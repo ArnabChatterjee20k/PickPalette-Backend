@@ -10,9 +10,11 @@
     "start-supabase": "sudo npx supabase start",
     "generate": "drizzle-kit generate:pg",
     "migrate-local": "npx drizzle-kit generate:pg && npx ts-node migrate.ts && npm run gen-types-local",
-    "migrate-remote": "npx drizzle-kit migrate:pg && npx ts-node migrate.ts && npm run gen-types-remote",
+    "migrate-remote": "npx drizzle-kit generate:pg && npx ts-node migrate.ts && npm run gen-types-remote",
     "gen-types-local": "mkdir -p supabase/functions/__shared/types && supabase gen types typescript --local > supabase/functions/__shared/types/supabase.ts",
-    "gen-types-remote": "mkdir -p supabase/functions/__shared/types && supabase gen types typescript --local > supabase/functions/__shared/types/supabase.ts"
+    "gen-types-remote": "mkdir -p supabase/functions/__shared/types && supabase gen types typescript --local > supabase/functions/__shared/types/supabase.ts",
+    "delete-migration-local":"npx drizzle-kit drop && npx ts-node migrate.ts && npm run gen-types-local",
+    "delete-migration-remote":"npx drizzle-kit drop && npx ts-node migrate.ts && npm run gen-types-remote"
   },
   "author": "",
   "license": "ISC",

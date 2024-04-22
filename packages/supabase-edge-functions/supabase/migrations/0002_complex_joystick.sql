@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS "saved-palettes" (
-	"id" serial PRIMARY KEY NOT NULL,
 	"created_at" timestamp DEFAULT now(),
-	"palette" varchar[],
-	"user_id" uuid NOT NULL
+	"palette" varchar NOT NULL,
+	"user_id" uuid NOT NULL,
+	CONSTRAINT "id" PRIMARY KEY("palette","user_id")
 );
 --> statement-breakpoint
 DO $$ BEGIN
