@@ -3,27 +3,14 @@ import * as pw from "playwright";
 import { Browser, Page } from "playwright";
 import { generatePalettes } from "./utils/generatePalettes";
 import { savePaletteToCache } from "./utils/savePalette";
-import { Logger, getLogger } from "./Logger";
 
-interface LinkOption {
-  saveToLogger: boolean;
-  include: string[];
-  exclude: string[];
-}
-
-interface LoggerOption {
-  data: string[];
-  fileName: string;
-}
 export class ProductHuntCrawler {
   private browser: Browser;
   private page: Page;
-  private count: number;
-  private generalDataLogger: Logger;
-  private linksLogger: Logger;
+  private productCrawled: number;
   private screenshotPath: string;
   constructor(public config: Config) {
-    this.count = 0;
+    this.productCrawled = 0;
     this.screenshotPath = "img/test.png";
   }
   async init(): Promise<ProductHuntCrawler> {
@@ -47,14 +34,14 @@ export class ProductHuntCrawler {
       await this.navigate(url);
       const links = await this.getAllLinks();
 
-      while (this.count < maxQueries && links.length) {
+      while (this.productCrawled < maxQueries && links.length) {
         const link = links.shift();
         if (visitedPages.has(link)) continue;
         visitedPages.add(link);
-        const errorInCrawledPage = await this.crawlPage(link);
-        if (errorInCrawledPage) errorsInPages.push(errorInCrawledPage);
-        console.log(this.count);
-        this.count++;
+        const isErrorInCrawledPage = await this.crawlPage(link);
+        if (isErrorInCrawledPage) errorsInPages.push(isErrorInCrawledPage);
+        console.log(this.productCrawled);
+        this.productCrawled++;
       }
     } catch (error) {
       console.log({ error, url });
@@ -128,7 +115,6 @@ export class ProductHuntCrawler {
   async takeScreenshot() {
     return this.page.screenshot({ path: this.screenshotPath, fullPage: true });
   }
-  async fetchProductPalettesFromProductPageScreenshot() {}
 
   async getProductMainPageVisitingLink() {
     return await this.page.evaluate(() => {
@@ -137,9 +123,5 @@ export class ProductHuntCrawler {
       );
       return elements.length ? elements[0].href : "";
     });
-  }
-  async savePaletteToDB(title: string, description: string) {
-    const data = await generatePalettes("img/test.png");
-    savePaletteToCache({ description, title, palette: data });
   }
 }
