@@ -18,8 +18,7 @@ async function run_crawler() {
   const errors = await crawler.crawl();
   if (errors.length) console.log(errors);
   const data = await getCachedPalettesInfo();
-  await saveToPaletteDB(data);
-  await saveToVectorDB(data);
+  await Promise.all([await saveToPaletteDB(data),await saveToVectorDB(data)])
   const logger = await getLogger("Products");
   logger.info(data);
 }
