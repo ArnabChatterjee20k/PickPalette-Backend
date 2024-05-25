@@ -1,6 +1,7 @@
 import { ProductHuntCrawler } from "./src/core";
 import { Config } from "./src/types/Config";
 import getProductHuntLinkToScrape from "./src/utils/getProductHuntLinkToScrape";
+import * as fs from "fs";
 import {
   deleteFromDB,
   saveToPaletteDB,
@@ -17,8 +18,21 @@ async function run_crawler() {
   const errors = await crawler.crawl();
   if (errors.length) console.log(errors);
   const data = await getCachedPalettesInfo();
-  await saveToPaletteDB(data);
-  await saveToVectorDB(data);
+  const palettes = await saveToPaletteDB(data);
+  const vectors = await saveToVectorDB(data);
+  await save(data, "whole.json");
+  await save(palettes, "data.json");
+  await save(vectors, "vector.json");
 }
 
 run_crawler();
+// @ts-ignore
+async function save(data, file) {
+  fs.writeFile(file, JSON.stringify(data, null, 2), (err) => {
+    if (err) {
+      console.error("Error writing file:", err);
+      return;
+    }
+    console.log("File written successfully!");
+  });
+}
