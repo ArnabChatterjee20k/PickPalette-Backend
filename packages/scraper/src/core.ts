@@ -45,12 +45,12 @@ export class ProductHuntCrawler {
       }
     } catch (error) {
       console.log({ error, url });
-      errorsInPages.push({url,error})
+      errorsInPages.push({ url, error });
     } finally {
       this.browser.close();
     }
 
-    return errorsInPages
+    return errorsInPages;
   }
 
   async crawlPage(link: string) {
@@ -101,14 +101,19 @@ export class ProductHuntCrawler {
     }
   }
   async getProductDetails() {
-    const descriptionTag = await this.page.waitForSelector(
+    const descriptionTag = this.page.locator(
       "xpath=//html/body/div[1]/div[2]/div[3]/main/div/div/div[2]/div[2]"
     );
-    if (!(await descriptionTag.isVisible())) return null;
-    const description = await descriptionTag.innerText();
+    const description = (await descriptionTag.isVisible())
+      ? await descriptionTag.innerText()
+      : "";
     const visitWebsiteLink = await this.getProductMainPageVisitingLink();
-    if (!visitWebsiteLink) return null;
-    await this.navigate(visitWebsiteLink, 2 * 60 * 1000);
+    if (visitWebsiteLink) {
+      await this.navigate(visitWebsiteLink, 2 * 60 * 1000);
+    } else {
+      const visitButton = await this.getClickVisitButton();
+      if (visitButton) await visitButton.click();
+    }
     const title = await this.page.title();
     return { title, description };
   }
@@ -123,5 +128,13 @@ export class ProductHuntCrawler {
       );
       return elements.length ? elements[0].href : "";
     });
+  }
+
+  async getClickVisitButton() {
+    const visitButtonLocator = this.page.locator("button", {
+      hasText: "Visit",
+    });
+    const visitButton = visitButtonLocator.first();
+    return (await visitButton.isVisible()) ? visitButton : null;
   }
 }
