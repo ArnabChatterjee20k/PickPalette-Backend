@@ -22,13 +22,13 @@ export async function saveToVectorDB(cache?: Cache) {
   const index = await db.get_index();
   const upsertData = await Promise.all(
     data.map(async (cachedProduct) => {
-      const { title, description, palette, positive, negative, neutral } =
+      const { title, description, palette, positive, negative, neutral, id } =
         cachedProduct;
       const docForEmbedding = `title:${title} description:${description} positive:${positive} negative:${negative} neutral:${neutral}`;
       const vectors = await db.generate_embeddings(docForEmbedding);
       return {
         values: vectors,
-        id: `${generateRandomId()}`,
+        id: `${id}`,
         metadata: { title: title, palettes: palette },
       };
     })
@@ -38,6 +38,7 @@ export async function saveToVectorDB(cache?: Cache) {
 }
 
 type Cache = {
+  id: number;
   title: string;
   description: string;
   palette: string[];
@@ -65,13 +66,23 @@ export async function getCachedPalettesInfo() {
   const palettesInfo = await Promise.all(
     cacheData.map(async (key) => {
       const { description, title, palette }: Options = cache.get(key);
+      const id = generateRandomId();
       try {
         const { positive, negative, neutral } = await classifySentiment(
           `title:${title} description:${description}`
         );
-        return { title, description, palette, positive, negative, neutral };
+        return {
+          title,
+          description,
+          palette,
+          positive,
+          negative,
+          neutral,
+          id,
+        };
       } catch {
         return {
+          id,
           title,
           description,
           palette,
