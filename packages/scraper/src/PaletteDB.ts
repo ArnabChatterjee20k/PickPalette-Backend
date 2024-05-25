@@ -21,7 +21,6 @@ export default class PaletteDB {
       process.env.SHEET_ID,
       this.serviceAccountAuth
     );
-    this.logger = getLogger("Palettes");
   }
 
   async intitialise() {
@@ -38,11 +37,11 @@ export default class PaletteDB {
 
   private async addNewPalettes(palettes: string[][]) {
     const paletteSheet = this.db.sheetsByTitle.Palette;
-    const logger = await this.logger;
     try {
       await paletteSheet.addRows(palettes);
       return true;
     } catch (error) {
+      const logger = await getLogger("Palettes");
       logger.error({
         status: "Error while saving to the palette sheet",
         error,
@@ -55,12 +54,12 @@ export default class PaletteDB {
     const counterSheet = this.db.sheetsByTitle.PaletteCounter;
     const row = (await counterSheet.getRows())[0];
     const count = parseInt(row.get("Count"));
-    const logger = await getLogger("PaletteCounter");
     try {
       row.set("Count", count + numberOfPalettesUpdated);
       row.save();
       return true;
     } catch (error) {
+      const logger = await getLogger("PaletteCounter");
       logger.error({
         status: "Error updating palette counter",
         error: error.message,
