@@ -11,7 +11,7 @@ import {
 const config: Config = {
   maxQueries: 40,
   selectors: [],
-  url: "https://www.producthunt.com/leaderboard/daily/2024/5/6",
+  url: getProductHuntLinkToScrape(),
 };
 async function run_crawler() {
   const crawler = await new ProductHuntCrawler(config).init();

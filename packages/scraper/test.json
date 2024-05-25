@@ -1,0 +1,285 @@
+{
+  "message": [
+    {
+      "id": 1716666215214,
+      "title": "Eraser – Docs and Diagrams for Engineering Teams",
+      "description": "",
+      "palette": [
+        "#161617",
+        "#c7c8cd",
+        "#696866",
+        "#5e5dbc",
+        "#5ab3b0",
+        "#403f3e",
+        "#d73a53",
+        "#3a3b5e",
+        "#396060",
+        "#253b3c"
+      ],
+      "positive": null,
+      "negative": null,
+      "neutral": null
+    },
+    {
+      "id": 1716666302783,
+      "title": "Snaplet",
+      "description": "",
+      "palette": [
+        "#fbda2d",
+        "#1e1a19",
+        "#6b7ceb",
+        "#e8e8ec",
+        "#7bd7e4",
+        "#b0b6ee",
+        "#fb6355",
+        "#888b8b",
+        "#195aa7",
+        "#0f2d79"
+      ],
+      "positive": null,
+      "negative": null,
+      "neutral": null
+    },
+    {
+      "id": 1716666473005,
+      "title": "Introducing QRev Dynamic Salesforce 2.0",
+      "description": "",
+      "palette": [
+        "#ae9bc4",
+        "#2f31ba",
+        "#040506",
+        "#1c2a54",
+        "#525369",
+        "#0e182b",
+        "#748ba3",
+        "#29486c",
+        "#112437",
+        "#292a33"
+      ],
+      "positive": null,
+      "negative": null,
+      "neutral": null
+    },
+    {
+      "id": 1716665733792,
+      "title": "Touch AI",
+      "description": "",
+      "palette": [
+        "#cdcdc9",
+        "#050707",
+        "#06ca67",
+        "#5d6060",
+        "#252626",
+        "#042c1b",
+        "#848484",
+        "#104a2f",
+        "#7b7c84",
+        "#3b3c44"
+      ],
+      "positive": null,
+      "negative": null,
+      "neutral": null
+    },
+    {
+      "id": 1716665971767,
+      "title": "AI Logo Maker - Create Stunning Logos Easily in Minutes | LogoMe",
+      "description": "",
+      "palette": [
+        "#0e0e31",
+        "#652f93",
+        "#f3f3fb",
+        "#3454fb",
+        "#acd3eb",
+        "#8ea5c2",
+        "#e3b4b3",
+        "#af94b5",
+        "#4cbce4",
+        "#dc893c"
+      ],
+      "positive": null,
+      "negative": null,
+      "neutral": null
+    },
+    {
+      "id": 1716666366596,
+      "title": "Branding 5 - AI brand positioning & marketing strategy tool",
+      "description": "",
+      "palette": [
+        "#f8ddd0",
+        "#fa7a27",
+        "#3464fb",
+        "#6d4039",
+        "#0b070b",
+        "#7b85a5",
+        "#e3a17b",
+        "#1a5296",
+        "#3ca4fc",
+        "#0d2686"
+      ],
+      "positive": null,
+      "negative": null,
+      "neutral": null
+    },
+    {
+      "id": 1716665956589,
+      "title": "Branding 5 - AI brand positioning & marketing strategy tool",
+      "description": "",
+      "palette": [
+        "#3464fb",
+        "#f9dfd1",
+        "#291b1b",
+        "#fb7b28",
+        "#928da4",
+        "#95caed",
+        "#606f87",
+        "#e6a879",
+        "#de4e1d",
+        "#0c2786"
+      ],
+      "positive": null,
+      "negative": null,
+      "neutral": null
+    },
+    {
+      "id": 1716666714842,
+      "title": "",
+      "description": "",
+      "palette": [
+        "#121515",
+        "#f4f4f4",
+        "#999ca0",
+        "#6d7787",
+        "#c4c5c5",
+        "#748493",
+        "#838484",
+        "#7c7c7f",
+        "#b4b4b8",
+        "#bcbcbc"
+      ],
+      "positive": null,
+      "negative": null,
+      "neutral": null
+    },
+    {
+      "id": 1716666032219,
+      "title": "'Amazon Rufus' AI experience comes to the Amazon Shopping app",
+      "description": "",
+      "palette": [
+        "#eeeeed",
+        "#1d252c",
+        "#43a1b6",
+        "#706d6f",
+        "#246dc0",
+        "#e09b33",
+        "#19507b",
+        "#484c51",
+        "#ae6346",
+        "#426058"
+      ],
+      "positive": null,
+      "negative": null,
+      "neutral": null
+    },
+    {
+      "id": 1716666142303,
+      "title": "'Amazon Rufus' AI experience comes to the Amazon Shopping app",
+      "description": "",
+      "palette": [
+        "#edecec",
+        "#1d252c",
+        "#32a4bf",
+        "#677079",
+        "#246ec1",
+        "#df9a36",
+        "#65524e",
+        "#a95f43",
+        "#474a50",
+        "#426058"
+      ],
+      "positive": null,
+      "negative": null,
+      "neutral": null
+    },
+    {
+      "id": 1716666321445,
+      "title": "Timeframe - Productivity calendar with superpowers",
+      "description": "",
+      "palette": [
+        "#212154",
+        "#eff3f7",
+        "#553ece",
+        "#894e7a",
+        "#93add7",
+        "#d5984f",
+        "#5da2e1",
+        "#eace9e",
+        "#c0d3e9",
+        "#cfa0a4"
+      ],
+      "positive": null,
+      "negative": null,
+      "neutral": null
+    },
+    {
+      "id": 1716666720564,
+      "title": "BreadCrumbs | Blockchain-based affiliation platform",
+      "description": "",
+      "palette": [
+        "#04050d",
+        "#c7cfde",
+        "#16b781",
+        "#f29a0c",
+        "#426460",
+        "#a95f1a",
+        "#1d2f30",
+        "#0c503a",
+        "#55380e",
+        "#64748c"
+      ],
+      "positive": null,
+      "negative": null,
+      "neutral": null
+    },
+    {
+      "id": 1716665817059,
+      "title": "Crypto Asset Management Platform - Your Passive Income | Hexn",
+      "description": "",
+      "palette": [
+        "#253366",
+        "#f1f3fa",
+        "#324ad4",
+        "#9ab4c8",
+        "#5aaa9c",
+        "#cb9c5a",
+        "#916664",
+        "#c4ceea",
+        "#eacd9d",
+        "#c9a08f"
+      ],
+      "positive": null,
+      "negative": null,
+      "neutral": null
+    },
+    {
+      "id": 1716666659715,
+      "title": "Ahromm Introduction",
+      "description": "",
+      "palette": [
+        "#342439",
+        "#f5f2f2",
+        "#9bc3bb",
+        "#817f80",
+        "#0c0505",
+        "#567d76",
+        "#271914",
+        "#5f6367",
+        "#848ca4",
+        "#9ca474"
+      ],
+      "positive": null,
+      "negative": null,
+      "neutral": null
+    }
+  ],
+  "level": "info"
+}

@@ -14,7 +14,7 @@ export class ProductHuntCrawler {
     this.screenshotPath = "img/test.png";
   }
   async init(): Promise<ProductHuntCrawler> {
-    this.browser = await pw.chromium.launch({ headless: false });
+    this.browser = await pw.chromium.launch({ headless: true });
     this.page = await this.browser.newPage();
     return this;
   }
@@ -47,7 +47,7 @@ export class ProductHuntCrawler {
       console.log({ error, url });
       errorsInPages.push({ url, error });
     } finally {
-      this.browser.close();
+      await this.browser.close();
     }
 
     return errorsInPages;

@@ -72,7 +72,7 @@ class DBLogger extends BaseLogger {
     this.consoleLogger.info(`${collectionName} Logger database setuped`);
     try {
       const url = this.url;
-      const client = new MongoClient(url, { monitorCommands: true });
+      const client = new MongoClient(url);
       await client.connect();
       const transportOptions = {
         db: await Promise.resolve(client),
