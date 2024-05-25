@@ -7,22 +7,27 @@ class BaseLogger {
 
   log(message: string, level: string = "info") {
     this.logger.log(level, message);
+    this.logger.close();
   }
 
   error(message: string) {
     this.logger.error(message);
+    this.logger.close();
   }
 
   warn(message: string) {
     this.logger.warn(message);
+    this.logger.close();
   }
 
   info(message: string) {
     this.logger.info(message);
+    this.logger.close();
   }
 
   debug(message: string) {
     this.logger.debug(message);
+    this.logger.close();
   }
 }
 
@@ -63,11 +68,11 @@ class DBLogger extends BaseLogger {
     });
   }
 
-  async connectToDatabase(collectionName:string) {
+  async connectToDatabase(collectionName: string) {
     this.consoleLogger.info(`${collectionName} Logger database setuped`);
     try {
       const url = this.url;
-      const client = new MongoClient(url);
+      const client = new MongoClient(url, { monitorCommands: true });
       await client.connect();
       const transportOptions = {
         db: await Promise.resolve(client),
@@ -79,17 +84,16 @@ class DBLogger extends BaseLogger {
       this.consoleLogger.error(
         `Error connecting to ${collectionName} Logger database: ${error}`
       );
-      this.consoleLogger.info("Using Console logger")
+      this.consoleLogger.info("Using Console logger");
       this.logger = this.consoleLogger.getLogger();
-    } finally {
-      return this.logger;
     }
+    return this.logger;
   }
 }
 
-export async function getLogger(collectionName:string) {
+export async function getLogger(collectionName: string) {
   const logger = new DBLogger();
   return await logger.connectToDatabase(collectionName);
 }
 
-export type Logger = Promise<winston.Logger>
+export type Logger = Promise<winston.Logger>;
