@@ -2,32 +2,34 @@ import * as winston from "winston";
 import "winston-mongodb";
 import { MongoClient } from "mongodb";
 
+type Message = Object
+
 class BaseLogger {
   protected logger: winston.Logger;
 
-  log(message: string, level: string = "info") {
+  log(message: Message, level: string = "info") {
     this.logger.log(level, message);
-    this.logger.close();
+    this.logger.end();
   }
 
-  error(message: string) {
+  error(message: Message) {
     this.logger.error(message);
-    this.logger.close();
+    this.logger.end();
   }
 
-  warn(message: string) {
+  warn(message: Message) {
     this.logger.warn(message);
-    this.logger.close();
+    this.logger.end();
   }
 
-  info(message: string) {
+  info(message: Message) {
     this.logger.info(message);
-    this.logger.close();
+    this.logger.end();
   }
 
-  debug(message: string) {
+  debug(message: Message) {
     this.logger.debug(message);
-    this.logger.close();
+    this.logger.end();
   }
 }
 
@@ -87,7 +89,7 @@ class DBLogger extends BaseLogger {
       this.consoleLogger.info("Using Console logger");
       this.logger = this.consoleLogger.getLogger();
     }
-    return this.logger;
+    return this;
   }
 }
 
