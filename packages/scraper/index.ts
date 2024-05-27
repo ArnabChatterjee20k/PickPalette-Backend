@@ -16,11 +16,17 @@ const config: Config = {
 async function run_crawler() {
   const crawler = await new ProductHuntCrawler(config).init();
   const errors = await crawler.crawl();
-  if (errors.length) console.log(errors);
-  const data = await getCachedPalettesInfo();
-  await Promise.all([await saveToPaletteDB(data),await saveToVectorDB(data)])
+  if (errors.length) {
+    const logger = await getLogger("ProductCrawl");
+    logger.error(errors);
+  }
+  const productCrawledInfo = await getCachedPalettesInfo();
+  await Promise.all([
+    await saveToPaletteDB(productCrawledInfo),
+    await saveToVectorDB(productCrawledInfo),
+  ]);
   const logger = await getLogger("Products");
-  logger.info(data);
+  logger.info(productCrawledInfo);
 }
 
 run_crawler();
