@@ -39,32 +39,27 @@ export interface Database {
           created_at: string | null
           feedback: string
           id: number
+          ready: boolean | null
           sentiment_score: number
-          user_id: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string | null
           feedback: string
           id?: number
+          ready?: boolean | null
           sentiment_score: number
-          user_id: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string | null
           feedback?: string
           id?: number
+          ready?: boolean | null
           sentiment_score?: number
-          user_id?: string
+          user_id?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "feedback_user_id_users_id_fk"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       palette: {
         Row: {

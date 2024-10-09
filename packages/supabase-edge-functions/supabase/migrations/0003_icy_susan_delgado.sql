@@ -1,0 +1,1 @@
+ALTER TABLE "feedback" ADD COLUMN "ready" boolean DEFAULT false;

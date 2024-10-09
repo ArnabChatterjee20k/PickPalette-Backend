@@ -22,6 +22,13 @@
       "when": 1713789994264,
       "tag": "0002_complex_joystick",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1728401932788,
+      "tag": "0003_icy_susan_delgado",
+      "breakpoints": true
     }
   ]
 }
