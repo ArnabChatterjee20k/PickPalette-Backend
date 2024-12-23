@@ -6,7 +6,7 @@ on:
 
 jobs:
   scrape:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     env:
         VECTOR_DB_API_KEY: ${{ secrets.VECTOR_DB_API_KEY }}
